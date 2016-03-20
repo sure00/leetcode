@@ -1,0 +1,29 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        
+        resLeft = 0
+        resRight = 0
+        size = len(s)
+        
+        if size <= 2:
+            return s
+        
+        dp=[[0 for x in range(size)] for y in range(size)]
+        dp[0][0]=1
+        
+        for i in range(1,size) :
+            dp[i][i]=1
+            dp[i-1][i] =1
+        for k in range(2, size):
+            for i in range(size-k):
+                if s[i] == s[i+k-1] and dp[i+1][i+k-2] ==1 :
+                    dp[i][i+k-1]=1
+                    
+                    if(resRight-resLeft+1 < k):
+                             resLeft = i
+                             resRight = i+k-1
+        return s[resLeft:resRight]
