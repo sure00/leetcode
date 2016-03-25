@@ -1,0 +1,26 @@
+class Solution(object):
+    def reverse(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+
+        
+        newValue = 0
+        left = 0
+        num = abs(x)
+        
+        if num >2147483647:
+            return 0
+        if num<10:
+            return x 
+        while(num!=0) :
+            left = num%10
+            newValue = newValue*10 + left
+            num=num/10
+        if newValue >2147483647:
+            return 0
+        if x > 0 :
+            return newValue
+        else:
+            return -newValue
