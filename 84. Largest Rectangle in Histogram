@@ -1,0 +1,19 @@
+class Solution(object):
+    def largestRectangleArea(self, heights):
+        """
+        :type heights: List[int]
+        :rtype: int
+        """
+        i=0
+        maxArea = 0
+        stack = []
+        h = heights + [0]
+        
+        while(i < len(h)) :
+            if (not stack) or h[i] >= h[stack[-1]] :
+                stack.append(i)
+                i +=1
+            else:
+                t = stack.pop()
+                maxArea = max(maxArea, h[t] * (i if not stack else i - stack[-1] - 1))
+        return maxArea
