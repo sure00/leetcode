@@ -1,0 +1,27 @@
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        if len(height) <=2:
+            return 0
+        
+        stack = []
+        trap = 0
+        cur =0
+        
+        while cur < len(height) and height[cur] == 0:
+            cur +=1;
+        
+        while cur < len(height) :
+            if stack != [] and height[cur] >= height[stack[-1]]:
+                b = stack.pop()
+                if not stack :
+                    continue
+                trap += (cur - stack[-1] - 1) * min(height[cur]-height[b], height[stack[-1]] - height[b]) 
+            else :
+                stack.append(cur)
+                cur +=1
+
+        return trap
