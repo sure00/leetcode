@@ -1,0 +1,22 @@
+class Solution(object):
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        oper = ['+','-','*','/']
+        s=[]
+        
+        for c in tokens:
+            if c not in oper :
+                s.append(c)
+            else :
+                b= s.pop();
+                a= s.pop();
+                
+                if int(a)*int(b) < 0 and c=='/' and int(a)%int(b)!=0:
+                    s.append(str(eval(a+c+b)+1))
+                else:
+                    s.append(str(eval(a+c+b)))
+                
+        return int(s[0])
