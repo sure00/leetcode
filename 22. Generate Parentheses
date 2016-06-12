@@ -1,0 +1,30 @@
+class Solution(object):
+    def generateParenthesis(self, n):
+        """
+        :type n: int
+        :rtype: List[str]
+        """
+        res = []
+        self.left = 0
+        self.right = 0
+
+        
+        def dfs(arr) :
+            if self.left == n and self.right == n :
+                res.append(arr)
+                return 
+        
+            if self.left < n :
+                self.left +=1
+                dfs(arr+'(')
+                self.left -=1
+            
+            if self.right < n and self.right < self.left:
+                self.right +=1
+                dfs(arr+')')
+                self.right -=1
+                
+        dfs('')
+        
+        return res;
+        
