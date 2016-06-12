@@ -1,0 +1,22 @@
+class Solution(object):
+    def combinationSum2(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        res = []
+        
+        def dfs(start, target, arr) :
+            if target == 0 and arr not in res:
+                res.append(arr)
+                return
+            for index in range(start, len(candidates)) :
+                if target < candidates[index] :
+                    return
+                dfs(index+1, target-candidates[index], arr+[candidates[index]])
+            
+        
+        candidates.sort()
+        dfs(0, target, [])
+        return res
