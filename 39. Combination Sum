@@ -1,0 +1,26 @@
+class Solution(object):
+    def combinationSum(self, candidates, target):
+        """
+        :type candidates: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        
+        res = []
+        
+        def dfs(target, start, arr) :
+            if target == 0 :
+                res.append(arr)
+                return
+            
+            for i in range(start, len(candidates)):
+                if target < candidates[i] :
+                    return
+                dfs(target-candidates[i], i, arr+[candidates[i]])
+
+        
+        candidates.sort()
+        
+        dfs(target, 0, [])
+        
+        return res
