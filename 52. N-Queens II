@@ -1,0 +1,30 @@
+class Solution(object):
+    def totalNQueens(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        self.count = 0
+        self.index = [-1] * n
+        
+        def isValid(row, column):
+            for k in range(0, row):
+                if self.index[k] == column:
+                    return False
+                if self.index[k] + k == row + column:
+                    return False
+                if self.index[k] - k == column - row:
+                    return False
+            return True
+                
+        def dfs(row):
+            if row == n:
+                self.count +=1
+            for j in xrange(n) :
+                if isValid(row, j):
+                    self.index[row] = j
+                    dfs(row+1)
+            
+        dfs(0)
+        
+        return self.count
