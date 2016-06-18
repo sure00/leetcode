@@ -1,0 +1,14 @@
+class Solution(object):
+    def canJump(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        distance = 0
+        
+        for i in xrange(len(nums)) :
+            if distance < i:
+                return False
+            distance = max(distance, i + nums[i])
+            
+        return True
