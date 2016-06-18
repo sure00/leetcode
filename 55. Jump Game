@@ -11,4 +11,4 @@ class Solution(object):
                 return False
             distance = max(distance, i + nums[i])
             
-        return True
+        return distance >= nums[i]
