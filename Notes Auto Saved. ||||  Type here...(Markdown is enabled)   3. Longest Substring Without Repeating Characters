@@ -1,0 +1,17 @@
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        
+        dict = {}
+        left = 0
+        ans = 0
+        
+        for i in xrange(len(s)):
+            if s[i] in dict and dict[s[i]] >= left:
+                left = dict[s[i]] + 1
+            dict[s[i]] = i
+            ans = max(ans, i-left+1)
+        return ans        
