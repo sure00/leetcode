@@ -1,0 +1,21 @@
+class Solution(object):
+    def permuteUnique(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def dfs(res, num, tmp, item):
+            if item == length:
+                    res.append(list(tmp))
+                    return
+            
+            for i in range(len(num)): 
+                if i > 0 and num[i] == num[i-1]:
+                    continue
+                else:
+                    dfs(res, num[:i]+num[i+1:], tmp+[num[i]], item+1)
+
+        res = []
+        length = len(nums)
+        dfs(res, sorted(nums), [], 0)
+        return res
