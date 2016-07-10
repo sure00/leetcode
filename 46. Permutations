@@ -1,0 +1,22 @@
+class Solution(object):
+    def permute(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        def dfs(num, res, tmp, item):
+            if len(num) == 0:
+                res.append(list(tmp))
+                return
+            
+            for i in xrange(len(num)):
+                tmp.append(num[i])
+                dfs(num[:i]+num[i+1:], res, tmp, item+1)
+                tmp.pop()
+        
+        res=[]
+        l = len(nums)
+        
+        dfs(nums, res, [], 0)
+        
+        return res
