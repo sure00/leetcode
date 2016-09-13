@@ -1,0 +1,23 @@
+class Solution(object):
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        c=[]
+        
+        for n in range(numRows):
+            tmp = []
+            if n == 0:
+                tmp=[1]
+            else:
+                for i in range(n+1):
+                    if i > len(c[n-1])-1:
+                        tmp.append(c[n-1][i-1])
+                    elif i-1 < 0:
+                        tmp.append(c[n-1][i])
+                    else:
+                        tmp.append(c[n-1][i] +c[n-1][i-1])
+            
+            c.append(tmp)
+        return c 
