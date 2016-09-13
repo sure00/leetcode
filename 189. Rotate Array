@@ -1,0 +1,21 @@
+class Solution(object):
+    def rotate(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        
+        tmpList = []
+        
+        if k >= len(nums):
+            k = k % len(nums)
+        
+        for i in range(len(nums)-k,len(nums),1):
+            tmpList.append(nums[i])
+        
+        for i in range(len(nums)-k):
+            tmpList.append(nums[i])
+        
+        for i in range(len(nums)):
+            nums[i] = tmpList[i]
