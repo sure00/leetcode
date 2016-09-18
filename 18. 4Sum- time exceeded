@@ -1,0 +1,23 @@
+class Solution(object):
+    def fourSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[List[int]]
+        """
+        ret =[]
+        nums.sort()
+        
+        for i in range(len(nums)-3):
+            tmp1 = nums[i+1:]
+            for j in range(len(tmp1)-2):
+                tmp2= tmp1[j+1:]
+                for k in range(len(tmp2)-1):
+                    tmp3 = tmp2[k+1:]
+                    if target-(nums[i]+tmp1[j]+tmp2[k]) in tmp3:
+                        arr=[nums[i],tmp1[j],tmp2[k],target-(nums[i]+tmp1[j]+tmp2[k])]
+                        arr.sort()
+                        if arr not in ret:
+                            ret.append(arr)
+
+        return ret
