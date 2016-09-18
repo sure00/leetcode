@@ -1,0 +1,23 @@
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        ret  = []
+        nums.sort()
+        
+        for i in range(len(nums)):
+            target = 0-nums[i]
+            newList = nums[i+1:]
+            
+            hash={}
+            tmp = []
+            for j in range(len(newList)):
+                if target - newList[j] in hash:
+                    tmp =[nums[i], newList[j], target-newList[j]]
+                    tmp.sort()
+                    if tmp not in ret:
+                        ret.append(tmp)
+                hash[newList[j]]=j
+        return ret 
