@@ -1,0 +1,48 @@
+class Solution(object):
+    def spiralOrder(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: List[int]
+        """
+        if len(matrix) == 0:
+            return []
+        
+        res = []
+        
+        numrows = len(matrix)    # 3 rows in your example
+        numcols = len(matrix[0])
+        
+        left =0
+        right=numcols-1
+        top = 0
+        bottom = numrows-1
+        
+        while(True):
+            if len(res) == numrows* numcols:
+                return res
+            elif top == bottom:
+                for i in range(left, right+1):
+                    res.append(matrix[top][i])
+                return res
+            elif left == right:
+                for j in range(top, bottom+1):
+                    res.append(matrix[j][left])
+                return res
+
+            #range(0,2) [0][i]
+            for i in range(left, right+1): 
+                res.append(matrix[top][i])
+            #range(1,2) [j][1]
+            for j in range(top+1, bottom+1):
+                res.append(matrix[j][right])
+            # range(0,0,-1)
+            for k in range(right-1,left-1,-1):
+                res.append(matrix[bottom][k])
+            for w in range(bottom-1,top,-1):
+                res.append(matrix[w][left])
+            
+            #update the margin
+            left +=1
+            top +=1
+            right -=1
+            bottom -=1
