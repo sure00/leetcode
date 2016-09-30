@@ -1,0 +1,58 @@
+class Solution(object):
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        row = len(matrix)
+        col = len(matrix[0])
+
+        top = 0
+        buttom = row - 1 #1
+        left = 0
+        right = col - 1 # 1
+
+        while (True):
+            tmp = []
+            if right <= left:
+                break
+    
+            # backup the top line
+            for i in range(left, right+1):
+                # backup 1,2
+                tmp.append(matrix[top][i])
+            print("backup is",tmp)
+    
+            index = left # 0
+            # j in range(1, -1, -1)
+            for j in range(buttom, top - 1, -1):
+                matrix[top][index] = matrix[j][left]
+                print("copy node(%d,%d) to position(%d,%d)" % (j, left, top, index))
+                index += 1
+    
+            print("After rotate the most left vertical to the top row, matrix is ", matrix)
+    
+    
+            index = buttom
+            for w in range(right, left, -1):
+                matrix[index][left] = matrix[buttom][w]
+                index -= 1
+                print("copy node(%d,%d) to position(%d,%d)" % (buttom, w, index, left))
+            print("After rotate the most buton row to the most left, matrix is ", matrix)
+    
+            index = right
+            for k in range(top, buttom):
+                matrix[buttom][index] = matrix[k][right]
+                index -= 1
+                print("copy node(%d,%d) to position(%d,%d)" % (k, right, buttom, index))
+            print("After rotate the most right vertical to the most button, matrix is ", matrix)
+    
+            index = top
+            for w in range(len(tmp)):
+                matrix[index][right] = tmp[w]
+                index += 1
+    
+            top += 1
+            buttom -= 1
+            left += 1
+            right -= 1
