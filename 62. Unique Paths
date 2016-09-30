@@ -1,0 +1,21 @@
+class Solution(object):
+    def uniquePaths(self, m, n):
+        """
+        :type m: int
+        :type n: int
+        :rtype: int
+        """
+        array = [[0]*n for i in range(m)]
+        
+        
+        for i in range(m):
+            for j in range(n):
+                if i == 0 and j ==0:
+                    array[i][j] = 1
+                elif i == 0:
+                    array[i][j] = array[i][j-1]
+                elif j == 0:
+                    array[i][j] = array[i-1][j]
+                else:
+                    array[i][j] = array[i-1][j] + array[i][j-1]
+        return array[m-1][n-1]
