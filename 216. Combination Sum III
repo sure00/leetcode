@@ -1,0 +1,21 @@
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        res = []
+    
+        def sub(start, cnt, sum, nums):
+            if cnt > k or sum > n:
+                return 
+            if cnt ==k and sum == n :
+                res.append(nums)
+                return
+            else:
+                for x in range(start+1,10):
+                    sub(x, cnt+1, sum+x , nums+[x])
+                
+        sub(0, 0, 0, [])
+        return res
