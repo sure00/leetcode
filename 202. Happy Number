@@ -1,0 +1,17 @@
+class Solution(object):
+    def isHappy(self, n):
+        """
+        :type n: int
+        :rtype: bool
+        """
+        
+        dict = []
+
+        while(True):
+            if n ==1 :
+                return True
+            elif n in dict:
+                return False
+            dict.append(n)
+            n = sum(int(digit)**2 for digit in str(n))
+            
