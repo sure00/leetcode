@@ -1,0 +1,25 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s)==0:
+            return 0
+        
+        c = collections.Counter(s)
+        
+        #c = sorted(c.items(), key=lambda x: x[1], reverse=True).values()
+        
+        l = 0
+        haveOddN =0
+        
+        for num in c.values():
+            if num %2 !=0:
+                num = num/2*2
+                haveOddN = 1
+            l+=num
+            
+        if haveOddN == 1:
+            l+=1
+        return l 
