@@ -1,0 +1,28 @@
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: bool
+        """
+        
+        left = 0
+        right = len(nums)-1
+        
+        while(left <= right):
+            mid = left +((right-left)>>1)
+            
+            if nums[mid] == target:
+                return True
+            
+            # cannot find out the increasing range in this part. increase left.
+            if nums[left] == nums[mid]:
+                left +=1
+                continue
+            
+            if nums[left] <nums[mid] and target >= nums[left] and target < nums[mid] or \
+                nums[left] > nums[mid] and not (target > nums[mid] and target <= nums[right]) :
+                    right = mid-1
+            else:
+                    left = mid+1
+            
