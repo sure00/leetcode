@@ -1,0 +1,32 @@
+class Solution(object):
+    def findMedianSortedArrays(self, nums1, nums2):
+        """
+        :type nums1: List[int]
+        :type nums2: List[int]
+        :rtype: float
+        """
+        def findk(k, A, B):
+            if len(A) == 0:
+                return B[k - 1]
+            if len(B) == 0:
+                return A[k - 1]
+            if k == 1:
+                return min(A[0], B[0])
+
+            #print("k/2-1 is", k / 2 - 1)
+            a = A[int(k / 2 - 1)] if len(A) >= k / 2 else None
+            b = B[int(k / 2 - 1)] if len(B) >= k / 2 else None
+
+            if b is None or (a is not None and a < b):
+                return findk(k - int(k / 2), A[int(k / 2):], B)
+
+            return findk(k - int(k / 2), A, B[int(k / 2):])
+        
+        total = len(nums1) + len(nums2)
+
+        # k is the kth element
+        if total % 2 == 0:
+            return (findk(total/2, nums1, nums2) + findk(total/2 + 1, nums1, nums2)) / 2.0
+        else:
+            return findk(total/2+1, nums1, nums2)
+        
