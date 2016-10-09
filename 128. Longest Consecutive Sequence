@@ -1,0 +1,27 @@
+class Solution(object):
+    def longestConsecutive(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        dict = {}
+        
+        #init dict
+        for num in nums:
+            dict[num]=1
+            
+        longest = 0
+        # check each element in nums
+        for num in nums:
+            
+            larger = num+1
+            while(larger in dict):
+                del dict[larger]
+                larger+=1
+                
+            smaller = num-1
+            while(smaller in dict):
+                del dict[smaller]
+                smaller -=1
+            longest = max(longest, larger - smaller -1)
+        return longest
