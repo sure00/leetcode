@@ -1,0 +1,30 @@
+class Solution(object):
+    def nextPermutation(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        
+        if len(nums) > 1:
+            for i in range(len(nums) - 1, -1, -1):
+                if i == 0:
+                    nums[0:len(nums)] = nums[0:len(nums)][::-1]
+                    return
+                elif nums[i] > nums[i - 1]:
+                    partitionNumver = i - 1
+                    #print("partitionNumver is %d, index is %d" %(nums[partitionNumver], partitionNumver))
+
+                    for j in range(len(nums)-1, partitionNumver , -1):
+                        print("j",j)
+                        if nums[j] > nums[partitionNumver]:
+                            exchange = j
+                            break
+
+                    #print("exchange value is ",nums[exchange])
+                    tmp = nums[partitionNumver]
+                    nums[partitionNumver] = nums[exchange]
+                    nums[exchange] = tmp
+                    #print("before sort", nums)
+                    #print("exchange position is",partitionNumver )
+                    nums[partitionNumver + 1:len(nums)] = nums[partitionNumver + 1:len(nums)][::-1]
+                    return
