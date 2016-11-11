@@ -1,0 +1,28 @@
+class Solution(object):
+    def trap(self, height):
+        """
+        :type height: List[int]
+        :rtype: int
+        """
+        sum =0
+        maxIndex = 0
+        max=0
+        for i in range(len(height)):
+            if height[i] > max:
+                maxIndex =i
+                max = height[i]
+        
+        peak=0
+        for i in range(maxIndex):
+            if height[i] > peak:
+                peak = height[i]
+            else:
+                sum += peak - height[i]
+        
+        top = 0
+        for i in range(len(height)-1, maxIndex,-1):
+            if height[i]> top:
+                top = height[i]
+            else:
+                sum += top - height[i]
+        return sum
