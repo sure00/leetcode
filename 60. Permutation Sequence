@@ -1,0 +1,21 @@
+class Solution(object):
+    def getPermutation(self, n, k):
+        """
+        :type n: int
+        :type k: int
+        :rtype: str
+        """
+        
+        numArr = list(range(1,n+1))
+        ret= []
+        
+        while(len(numArr) !=0):
+            if k ==0:
+                ret.extend(sorted(numArr, reverse=True))
+                return ''.join(map(str,ret))
+                
+            index = (k-1)/(math.factorial(len(numArr)-1))
+            k=k%(math.factorial(len(numArr)-1))
+            ret.append(numArr.pop(index))
+            
+        return ''.join(map(str,ret))
