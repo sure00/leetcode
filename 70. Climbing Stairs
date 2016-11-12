@@ -1,0 +1,21 @@
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        ppre = 1
+        pre = 1
+        cur =0
+        
+        if n ==0:
+            return 0
+        if n == 1:
+            return 1
+        
+        
+        for i in range(2,n+1):
+            cur = ppre+pre
+            ppre= pre
+            pre = cur
+        return cur
