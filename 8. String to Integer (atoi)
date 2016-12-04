@@ -1,0 +1,39 @@
+class Solution(object):
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        sign=1
+        i=0
+        num=0
+        MaxInt = (1 << 31) - 1
+        ret=0
+        
+        if len(str) ==0:
+            return 0
+            
+        while (i < len(str) and str[i]==' '):
+            i+=1
+        if str[i]=='+':
+            i+=1
+        elif str[i]=='-':
+            sign *=-1
+            i+=1
+        
+        for i in range(i, len(str)):
+            if str[i] < '0' or str[i]>'9':
+                break
+            num = num*10 + int(str[i])
+            if num > sys.maxint:
+                break
+            
+        ret = sign*num
+        if ret >= MaxInt:
+            #2147483647
+            return MaxInt
+        if ret < -1* MaxInt:
+            #min is -2147483648
+            return -1*MaxInt-1
+            
+        return ret
