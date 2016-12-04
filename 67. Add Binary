@@ -1,0 +1,27 @@
+class Solution(object):
+    def addBinary(self, a, b):
+        """
+        :type a: str
+        :type b: str
+        :rtype: str
+        """
+        carry=0
+        aindex= len(a)-1
+        bindex= len(b)-1
+        ret=''
+        
+        while aindex >= 0 or bindex>=0:
+            x=a[aindex] if aindex >=0 else 0
+            y=b[bindex] if bindex >=0 else 0
+            
+            sum=int(x)+int(y)+carry
+            carry = sum/2
+            if sum %2 ==0:
+                ret = '0' + ret
+            else:
+                ret = '1' + ret
+            aindex , bindex = aindex-1, bindex-1
+            
+        if carry ==1:
+            ret = '1' + ret
+        return ret
