@@ -1,0 +1,50 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+
+        def constructT(s):
+            ret = ''
+            for i in s:
+                ret += '#' + i
+            ret += '#'
+
+            return ret
+
+        def constructP(T):
+            C = 0
+            R = 0
+            P = [0] * len(T)
+
+            for i in range(1, len(T)):
+                if i < R:
+                    P[i] = min(R - i, P[2 * C - i])
+                else:
+                    P[i] = 0
+
+                while (i - 1 - P[i] >= 0 and i + 1 + P[i] <= len(T) - 1 and T[i + 1 + P[i]] == T[i - 1 - P[i]]):
+                    P[i] += 1
+
+                if i + P[i] > R:
+                    C = i
+                    R = i + P[i]
+            return P
+
+        T = constructT(s)
+        P = constructP(T)
+
+        ma = 0
+        ind = 0
+        for i in range(len(P)):
+            if ma < P[i]:
+                ma = P[i]
+                ind = i
+                
+        start = int((ind - 1 - ma) / 2)
+        if start < 0:
+            start =0
+        
+        #return s[start: int((ind - 1 - ma) / 2) + ma+1]
+        return s[ind // 2 - ma // 2: ind // 2 - ma // 2 + ma ]
