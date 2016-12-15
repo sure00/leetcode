@@ -1,0 +1,38 @@
+class Solution(object):
+    def isNumber(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        status=[
+            {},
+            {'blank':1,'signal':2,'digital':3, 'dot':4, }, #state initial q1
+            {'digital':3, 'dot':4}, #state +/- q2
+            {'dot':5, 'digital':3, 'exponential':6,'blank':9}, #state q3 1234
+            {'digital':5}, #state q4 xx.
+            {'digital':5,'exponential':6, 'blank':9}, #state q5  xx.xx
+            {'signal':7, 'digital':8}, #state q6 xxx e
+            {'digital':8}, #state q7 xxe+/-
+            {'digital':8, 'blank':9}, #state q8 xxe8
+            {'blank':9}
+        ]
+
+        curState = 1
+        for c in s:
+            action =''
+            if c >= '0' and c <='9':
+                action ='digital'
+            if c == '.':
+                action ='dot'
+            if c == ' ':
+                action = 'blank'
+            if c in ['+','-']:
+                action = 'signal'
+            if c =='e':
+                action='exponential'
+            if action not in status[curState].keys():
+                return False
+            curState = status[curState][action]
+        if curState not in [3,5,8,9]:
+            return False
+        return True
