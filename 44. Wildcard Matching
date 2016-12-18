@@ -1,0 +1,28 @@
+class Solution(object):
+    def isMatch(self, s, p):
+        sCur=0
+        pCur =0
+        start = -1
+
+        while(sCur < len(s)):
+            if pCur < len(p) and (s[sCur] == p[pCur] or p[pCur] == '?'):
+                sCur +=1
+                pCur +=1
+            elif(pCur < len(p) and p[pCur] == '*'):
+                ss= sCur
+                start = pCur
+                pCur +=1
+            elif (start !=-1):
+                pCur = start +1
+                ss +=1
+                sCur = ss
+            else:
+                return False
+
+        while(pCur < len(p) and p[pCur] == '*'):
+            pCur +=1
+
+        if pCur == len(p):
+            return True
+        else:
+            return False
