@@ -1,0 +1,30 @@
+class Solution(object):
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        l = 1
+        s = '1'
+
+        while l < n:
+            print(l)
+            count = 1
+            tmp = ''
+            print("original is ", s)
+            for i in range(len(s)):
+                if i != 0 and s[i] != s[i - 1]:
+                    tmp += str(count) + s[i - 1]
+                    count = 1
+                elif i != 0 and s[i] == s[i - 1]:
+                    count += 1
+                if i == (len(s) - 1):
+                    tmp += str(count) + s[i]
+                    continue
+
+            s = tmp
+
+            print("after modify is",s)
+            l += 1
+
+        return s
