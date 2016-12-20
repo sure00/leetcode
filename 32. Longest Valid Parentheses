@@ -1,0 +1,19 @@
+class Solution(object):
+    def longestValidParentheses(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        stack=[]
+        stack.append(-1)
+        maxL=0
+        for i in range(len(s)):
+            t=stack[-1]
+            if t!=-1 and s[t]=='(' and s[i]==')':
+                stack.pop()
+                maxL=max(maxL,i-stack[-1])
+            else:
+                stack.append(i)
+        return maxL
+                
+            
