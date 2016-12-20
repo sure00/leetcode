@@ -1,0 +1,15 @@
+class Solution(object):
+    def lengthOfLastWord(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        p=s.split(' ')
+        i=len(p)-1
+        
+        while(i>=0):
+            if p[i]=='':
+                i-=1
+            else:
+                return len(p[i])
+        return 0
