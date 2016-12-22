@@ -1,0 +1,31 @@
+class Solution(object):
+    def evalRPN(self, tokens):
+        """
+        :type tokens: List[str]
+        :rtype: int
+        """
+        
+        stack=[]
+        operator=['+','-','*','/']
+        
+        for t in tokens:
+            if t not in operator:
+                stack.append(t)
+            elif t in operator:
+                y=int(stack.pop())
+                x=int(stack.pop())
+                tmp=0
+                if t=='+':
+                    tmp = (x+y)
+                elif t=='-':
+                    tmp= x-y
+                elif t=='*':
+                    tmp=x*y
+                elif t=='/':
+                    if x*y<0 and x%y!=0:
+                        tmp=x/y+1
+                    else:
+                        tmp=x/y
+                stack.append(str(tmp))
+        return int(stack[-1])
+                
