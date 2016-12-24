@@ -1,0 +1,29 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def BFS(self, root, level, res):
+        if root:
+            #if [[]] the internal [] do not allocated, allocate one to array
+            if len(res) <= level:
+                res.append([])
+            res[level].append(root.val)
+            self.BFS(root.left, level+1, res)
+            self.BFS(root.right, level+1, res)
+        else:
+            return
+        
+    def levelOrder(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[List[int]]
+        """
+        level=0
+        res =[]
+        
+        self.BFS(root, level, res)
+        return res
