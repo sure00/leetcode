@@ -1,0 +1,26 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    # @param {TreeNode} root
+    # @return {string[]}
+    
+    def DFS(self, root, path, res):
+        if root and root.left ==None and root.right == None:
+            res.append(path+str(root.val))
+            return
+        if root:
+            self.DFS(root.left, path+str(root.val)+'->', res)
+            self.DFS(root.right, path+str(root.val)+'->', res)
+        
+    def binaryTreePaths(self, root):
+        res=[]
+        if root == None:
+            return res
+            
+        self.DFS(root, '', res)
+        return res
