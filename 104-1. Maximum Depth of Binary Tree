@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def DFSDepth(self, root):
+        if root == None:
+            return 0
+        leftDep=self.DFSDepth(root.left)
+        rightDep=self.DFSDepth(root.right)
+        
+        return max(leftDep, rightDep)+1
+    
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        return self.DFSDepth(root)
