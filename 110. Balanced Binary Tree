@@ -6,19 +6,23 @@
 #         self.right = None
 
 class Solution(object):
-    def Height(self, root):
-        if root == None:
-            return True
-        return max(self.Height(root.right), self.Height(root.left)) + 1
-    
+    def DFSDep(self, root):
+        if root is None:
+            return 0
+        depLeft = self.DFSDep(root.left)
+        if depLeft == -1:
+            return -1
+        depRight=self.DFSDep(root.right)
+        if depRight == -1:
+            return -1
+        if abs(depLeft - depRight) > 1:
+            return -1
+        
+        return max(depLeft, depRight) +1
+        
     def isBalanced(self, root):
         """
         :type root: TreeNode
         :rtype: bool
         """
-        if root == None:
-            return True
-        if abs(self.Height(root.left) - self.Height(root.right)) <=1:
-            return self.isBalanced(root.left) and self.isBalanced(root.right)
-        else :
-            return False
+        return self.DFSDep(root)!=-1
