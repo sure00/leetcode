@@ -10,12 +10,9 @@ class Solution(object):
         if root is None:
             return 0
         depLeft = self.DFSDep(root.left)
-        if depLeft == -1:
-            return -1
         depRight=self.DFSDep(root.right)
-        if depRight == -1:
-            return -1
-        if abs(depLeft - depRight) > 1:
+
+        if abs(depLeft - depRight) > 1 or depLeft < 0 or depRight < 0:
             return -1
         
         return max(depLeft, depRight) +1
