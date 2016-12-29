@@ -1,0 +1,31 @@
+class Solution(object):
+    def cal(self, left, right, operator):
+        if operator == '+':
+            return left+right
+        elif operator == '-':
+            return left-right
+        elif operator == '*':
+            return left*right
+    
+    def diffWaysToCompute(self, input):
+        """
+        :type input: str
+        :rtype: List[int]
+        """
+        if input.isdigit():
+            return [int(input)]
+        
+        res=[]
+        for i in range(len(input)):
+            if input[i] in "+-*":
+                # using divide and conquer. Image that operator is *. left input is 2*3-4 operator is * and right is 5*3+2
+                # left array is all the possible result.such as [2, -2]
+                left=self.diffWaysToCompute(input[:i])
+                # right array is all the possible result such as [17, 25]
+                right=self.diffWaysToCompute(input[i+1:])
+                
+                for l in left:
+                    for r in right:
+                        res.append(self.cal(l,r,input[i]))
+        return sorted(res)
+                        
