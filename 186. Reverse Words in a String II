@@ -1,0 +1,47 @@
+class Solution {
+public:
+    void reverse(string &s,int i, int j){
+        char tmp;
+        while(i<j){
+            tmp=s[i];
+            s[i]=s[j];
+            s[j]=tmp;
+            i++;
+            j--;
+        }    
+    }
+    
+    void reverseWords(string &s) {
+        int i=0,j=0, l=0;
+        int len=s.length();
+        
+        if(len <=1)
+            return;
+        
+        l=i;
+        for(i=0;i<=len;i++){
+            if(s[i]==' ' || i==len){
+                reverse(s, l, i-1);
+                l=i+1;
+            }
+        }
+        
+        /*
+        while(true){
+            if(i==len)
+                break;
+            
+            l=i;
+
+            while(i<len && s[i]!=' '){
+                i++;
+            }
+            
+            reverse(s, l, i-1);
+            i++;
+        }
+        */
+        reverse(s, 0,len-1);
+        
+    }
+};
