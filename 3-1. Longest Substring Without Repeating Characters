@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int *indexArr = (int*)malloc(sizeof(int)*256);
+        int curlen=0, maxlen=0;
+        
+        for(int i=0;i<256;i++)
+            indexArr[i]=-1;
+        
+        for(int i=0;i<s.length();i++){
+            int preindex = indexArr[s[i]];
+            
+            if(preindex == -1 || (i - preindex) > curlen){
+                curlen++;
+            }
+            else{
+                if(maxlen < curlen)
+                    maxlen = curlen;
+                curlen = i-preindex;
+            }
+            indexArr[s[i]]=i;
+        }
+        
+        free(indexArr);
+        if(maxlen < curlen)
+            maxlen = curlen;
+            
+        return maxlen;
+    }
+};
