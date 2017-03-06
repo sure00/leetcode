@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool isNumber(string s) {
+    int i=0, len = s.length();
+    bool isdigit=0;
+    
+    while(i<len && s[i]==' ')
+        i++;
+    if(i==len)
+        return false;
+    
+    if(s[i]=='+' || s[i]=='-')
+        i++;
+
+    int numpt=0, numdig=0;
+    
+    for(numpt=0, numdig=0 ;('0'<=s[i] && s[i]<='9') || s[i]=='.' ;i++){
+        if(s[i]=='.')
+            numpt++;
+        else
+            numdig++;
+    }
+    if(numpt>1 || numdig<1)
+        return false;
+        
+    if(s[i]=='e'){
+        i++;
+        if(s[i]=='+' || s[i]=='-')
+            i++;
+        for(numdig=0;i<len && '0'<=s[i] && s[i]<='9';i++ )
+            numdig++;
+        if(numdig <1)
+            return false;
+    }
+     
+    
+    while(i<len && s[i]==' ')
+        i++;
+    return i==len;    
+    
+    }
+};
