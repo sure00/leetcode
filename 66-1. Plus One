@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        int index=digits.size()-1;
+        int carry=1;
+        
+        while(index>=0){
+            digits[index]+=carry;
+            if(digits[index] ==10){
+                carry=1;
+                digits[index]=0;
+            }
+            else
+                carry=0;
+            index--;
+        }
+        if(carry==1){
+            digits.insert(digits.begin(), carry);
+        }
+        
+        return digits;
+    }
+};
