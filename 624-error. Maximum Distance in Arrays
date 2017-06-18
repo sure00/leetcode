@@ -1,0 +1,54 @@
+class Solution {
+public:
+    int maxDistance(vector<vector<int>>& arrays) {
+        int n=arrays.size();
+        int stmin=10001;
+        int stminPos=-1;
+        int ndmin,ndminPos;
+        int ndmax,ndmaxPos;
+        
+        int stmax=-10001;
+        int stmaxPos=-1;
+        
+        if(n > 1){
+            ndmin=10001, ndminPos = -1;
+            ndmax=-10001,ndmaxPos=-1;
+        }
+        
+        for(int i=0;i<n;i++){
+            int size = arrays[i].size();
+            
+            if(arrays[i][0] < stmin){
+                ndmin = stmin;
+                ndminPos = stminPos;
+                stmin = arrays[i][0];
+                stminPos = i;
+                
+            }
+            else if(n > 1 && arrays[i][0] >= stmin && arrays[i][0] < ndmin)
+            {
+                ndmin = arrays[i][0];
+                ndminPos = i;
+            }
+            
+            if(arrays[i][size-1] > stmax){
+                ndmax = stmax;
+                ndmaxPos=stmaxPos;
+                stmax = arrays[i][size-1];
+                stmaxPos = i;
+            }
+            else if(n > 1 && arrays[i][size-1] <= stmax && arrays[i][size-1]  > ndmax){
+                ndmax=arrays[i][size-1];
+                ndmaxPos = i;
+            }
+        }
+        
+        if(n == 1)
+            return stmax - stmin;
+        else if(stminPos !=stmaxPos)
+            return stmax - stmin;
+        else 
+            return (stmax - ndmin) > (ndmax - stmin) ? (stmax - ndmin) : (ndmax - stmin);
+        
+    }
+};
