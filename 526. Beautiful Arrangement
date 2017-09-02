@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int countArrangement(int N) {
+        int dep=1;
+        vector<int> Vec;
+        int res=0;
+        
+        for(int i=1;i<=N;i++)
+            Vec.push_back(i);    
+        
+        helper(Vec, dep, res);
+        
+        return res;
+    }
+    
+    void helper(vector<int>& Vec, int dep, int& res) {
+        if(Vec.size() == 0){
+            res+=1;
+            return ;
+        }
+
+        for(int i=0;i< Vec.size(); i++){
+            if(Vec[i]% dep ==0 || dep%Vec[i]==0){
+                int tmp=Vec[i];
+                Vec.erase(Vec.begin()+i);
+                helper(Vec, dep+1, res);
+                Vec.insert(Vec.begin()+i, tmp);
+            }
+        }
+    }
+};
