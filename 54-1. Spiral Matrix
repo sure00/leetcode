@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+
+        vector<int> res;
+     
+        if(matrix.empty() || matrix[0].empty()) 
+            return res;
+        
+        int row = matrix.size();
+        int col = matrix[0].size();
+        int left=0, top = 0, right = col-1, buttom = row -1;
+
+        
+        while(left <= right && top <= buttom){
+            if(left == right){
+                for(int i=top;i<=buttom;i++)
+                    res.push_back(matrix[i][left]);
+            }
+            else if(top == buttom){
+                for(int i= left;i<=right;i++)
+                    res.push_back(matrix[top][i]);
+            }
+            else{
+                for(int i=left; i<=right;i++)
+                    res.push_back(matrix[top][i]);
+        
+                for(int i = top+1;i<=buttom;i++)
+                    res.push_back(matrix[i][right]);
+
+                for(int i=right-1;i>=left;i--)
+                    res.push_back(matrix[buttom][i]);
+
+                for(int i=buttom-1; i > top; i--)
+                    res.push_back(matrix[i][left]);               
+            }
+            
+            left++;
+            right--;
+            top++;
+            buttom--;
+
+        }
+        return res; 
+    }
+    
+};
