@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<int> getRow(int rowIndex) {
+        vector<int> vec;
+        
+        for(int i=0;i<=rowIndex;i++){
+        
+            //back up previous vector size as we need to find the last position which need to replaced
+            int size=vec.size();
+            
+            //append last 1
+            vec.push_back(1);
+            
+            //from end to front, this can avoid value be replaced.
+            for(int j=size-1;j>0;j--){
+                vec[j]=vec[j]+vec[j-1];
+            }
+        }
+        return vec;
+    }
+};
