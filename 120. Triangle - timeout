@@ -1,0 +1,23 @@
+class Solution {
+public:
+    void  recursive(int level, int row, int col,vector<vector<int>>& triangle, int sum, int & min){
+            if(level > triangle.size()){
+                if(sum < min)
+                    min= sum;
+                return ;
+            }       
+         
+        
+            recursive(level+1, row+1, col,       triangle, sum+triangle[row][col], min);
+            recursive(level+1, row+1, col+1,   triangle, sum+triangle[row][col], min);
+    }
+    
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<int> dp;
+        int min = INT_MAX;
+        
+        recursive(1, 0,  0,  triangle, 0, min);
+        
+        return min;
+    }
+};
