@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<string> summaryRanges(vector<int>& nums) {
+        int left=0;
+        int right =0;
+        vector<string> ret;
+        
+        string item="";
+        
+        while(left <=right && right < nums.size()){
+            if(nums[right+1]==nums[right]+1){
+                right++;                
+            }
+            else{
+                if(left == right){
+                    item+=to_string(nums[left]);
+
+                }
+                else{
+                    item = item + to_string(nums[left]) + "->" + to_string(nums[right]);
+
+                }
+                ret.push_back(item);
+                item ="";
+                right+=1;
+                left=right;
+            }
+            
+        }
+        
+        return ret;
+    }
+};
