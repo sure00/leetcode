@@ -1,0 +1,52 @@
+class Solution {
+public:
+    
+    #find the number of element which is greater than mid
+    #meanwhile, check the repeat times of mid.
+    #if repeat times of mid greater than 2, which means the number is the target and return -1.
+    int actual_greater_than(int mid, vector<int>& nums){
+        int count=0;
+        int repeat=0;
+        for(int i=0;i< nums.size(); i++){
+            if(nums[i] > mid)
+                count++;       
+            if(nums[i] == mid)
+                repeat++;
+        }
+        if(repeat >=2)
+            return -1;
+        return count;        
+    }
+    
+    #using binary search
+    #find the mid value.
+    # [1, 2, 3 , 4, 1]
+
+    #
+    
+    int findDuplicate(vector<int>& nums) {
+        int start =1;
+        int end=nums.size()-1;
+        
+        while(start < end){
+            int mid = (end-start)/2 + start;
+            
+            int ret = actual_greater_than(mid, nums);
+            
+            if(ret == -1)
+                return mid;
+                
+ 
+    
+            if(ret >nums.size()-1-mid)
+                start = mid+1;
+                
+    #there are 5 numbers. range is 1 ->4. mid = 2. If there are no repeat number, [1] < 2, [3,4] greater than 2. 
+    #2 number(3, 4) greater than 2.  There have 4-2 = 2 number greater than 2.
+    #the repeat number nust in the range [1, mid]
+            else if(ret <= nums.size()-1-mid)
+                end = mid;
+        }
+        return start;
+    }
+};
