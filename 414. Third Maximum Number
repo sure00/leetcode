@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        long stLarge=LONG_MIN;
+        long ndLarge=LONG_MIN;
+        long rdLarge=LONG_MIN;
+        
+        int return3rd_flag=0;
+                
+        for(int i=0;i< nums.size();i++){
+            if(nums[i] >= stLarge){
+                if(nums[i] ==stLarge )
+                    continue;
+                #replace the st largest element 
+                rdLarge = ndLarge;
+                ndLarge = stLarge;
+                stLarge = nums[i];
+                continue;
+            }
+            else if( nums[i] >= ndLarge){
+                if(nums[i] ==ndLarge )
+                    continue;
+                rdLarge = ndLarge;
+                ndLarge=nums[i];
+                continue;
+            }
+            else if(nums[i]>=rdLarge){
+                if(nums[i] ==rdLarge )
+                    continue;
+                return3rd_flag = 1;
+                rdLarge = nums[i];       
+            }
+        }
+        
+        if(rdLarge != LONG_MIN)
+            return rdLarge;
+        else
+            return stLarge;           
+        
+    }
+};
