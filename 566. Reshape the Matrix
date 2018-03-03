@@ -1,0 +1,28 @@
+                                                                                                                                                                                                    class Solution {
+public:
+    vector<vector<int>> matrixReshape(vector<vector<int>>& nums, int r, int c) {
+        int oriRow = nums.size();
+        int oriCol = nums[0].size();
+        vector<vector<int>> ret;
+        
+        if(oriRow * oriCol < r*c)
+            return nums;
+
+        
+        for(int i=0;i<r;i++){
+            vector<int> tmp;
+            for(int j=0;j < c;j++){
+                # calculate the position of original array.
+                # if we know we need the 5th element in the array, we can locate the position by
+                #row = 5th / Cols
+                #col = 5th % Cols
+                #That would be easy to handle this case.
+            
+                tmp.push_back(nums[(i*c+j)/oriCol][(i*c+j)%oriCol]);                
+            }
+            ret.push_back(tmp);
+        }
+        
+        return ret;
+    }
+};
