@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maximumSwap(int num) {
+        string digit = to_string(num);
+        vector<int> mp(10,0);
+        
+        for(int i=0;i< digit.size();i++){
+            mp[digit[i]-'0']=i;
+        }
+        
+        for(int i=0;i < digit.size();i++){
+            for(int j=9;j> digit[i]-'0';j--)
+                if(mp[j]>i){
+                    char tmp= digit[i];
+                    digit[i]= digit[mp[j]];
+                    digit[mp[j]]=tmp;
+                    
+                    return stoi(digit);
+                }
+        }
+        
+        return num;
+    }
+};
