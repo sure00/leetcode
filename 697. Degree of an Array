@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int findShortestSubArray(vector<int>& nums) {
+        unordered_map<int, vector<int>> mp;
+        int degree=0;
+        int ret = nums.size();
+        
+        //1, 2, 2, 3, 1
+        //建立一个hash map， key是元素，value是数组，存放的是该元素出现位置的index
+        // 1： 【0， 4】
+        // 2： 【1， 2】
+        // 3：【3】
+        for(int i =0;i<nums.size();i++){
+            mp[nums[i]].push_back(i);            
+        }
+        //计算hashmap中每个key对应的数组大小，取最大的size为degree
+        for(const auto& p: mp){
+            if(degree < p.second.size())
+                degree = p.second.size();           
+        }
+        
+        //然后计算key对应的数组中，最后一个元素-第一个元素+1 算出来两个index 之间的差值。
+        for(const auto&p: mp){
+            if(degree == p.second.size()){
+                if(ret > p.second.back() - p.second.front() +1)
+                    ret =p.second.back() - p.second.front() +1;
+            }
+        }
+        return ret;
+    }
+};
