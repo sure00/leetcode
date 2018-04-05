@@ -1,0 +1,28 @@
+class MyCalendar {
+public:
+    MyCalendar() {
+        
+    }
+    
+    bool book(int start, int end) {
+        map<int,int>::iterator it = calendar.lower_bound(start);
+        if(it != calendar.cend() && it->first < end)
+            return false;
+        if(it != calendar.cbegin() && (--it)->second > start)
+            return false;
+        
+        calendar[start]=end;
+        return true;
+    }
+private:
+    map<int, int> calendar;
+};
+
+/**
+ * 题目比较巧妙，使用map。 map是排序的binary tree，红黑树写的。所以这样查找
+      1） 第一个start 比要插入的组合的start 大的组合比较容易。 log（n）
+      2） 因为是顺序的，说以找到的这个iteration的前一个就比较关键。 如果这个组合的end 元素比要插入的元素的start 大，那么肯定fail
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar obj = new MyCalendar();
+ * bool param_1 = obj.book(start,end);
+ */
