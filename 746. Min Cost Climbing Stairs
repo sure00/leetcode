@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        vector<int> dp(cost.size(), 0);
+        int last_stair= cost.size();//base 0
+        
+        if(last_stair< 2)
+            return dp[last_stair];
+        
+        for(int i=2;i<=last_stair;i++){
+            dp[i]= min(dp[i-1] + cost[i-1], dp[i-2]+cost[i-2]); 
+        }
+        
+        return dp[last_stair];
+    }
+};
