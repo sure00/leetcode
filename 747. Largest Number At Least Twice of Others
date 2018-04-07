@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int dominantIndex(vector<int>& nums) {
+        int MostBigIndex=-1;
+        int SecondBigIndex=-1;
+        
+        // 如果size是0， 1 单独考虑
+        if(nums.size()==0)
+            return -1;
+        
+        if(nums.size()==1)
+            return 0;
+        
+        //寻找最大和次大元素
+        for(int i=0;i<nums.size();i++){
+            if(MostBigIndex == -1 || nums[i] > nums[MostBigIndex]){
+                SecondBigIndex = MostBigIndex;
+                MostBigIndex = i;                
+            }
+            else if(MostBigIndex == -1 || nums[i] <  nums[MostBigIndex]  && nums[i] > nums[SecondBigIndex])
+                SecondBigIndex = i;
+            
+            //如果没有找到最大和次大元素就继续
+            if (MostBigIndex == -1 || SecondBigIndex == -1)
+                continue;
+        }
+        
+        //比较最大和次大元素。是否符合条件
+        if( nums[MostBigIndex] < 2 *nums[SecondBigIndex] )
+                return -1;
+        
+        return MostBigIndex;
+    }
+};
