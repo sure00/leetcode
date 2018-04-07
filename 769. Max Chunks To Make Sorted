@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maxChunksToSorted(vector<int>& arr) {
+        vector<int> FromLeftMax(arr.size(),0);
+        vector<int> FromRightMin(arr.size(),0);
+        int count=0;
+        
+        //Find max from the left side include the element itself
+        for(int i=0;i<arr.size();i++){
+            if(i==0)
+                FromLeftMax[0]=arr[0];
+            else
+                FromLeftMax[i]= max(FromLeftMax[i-1], arr[i]);            
+        }
+        
+        //Find the min element form the right side exclude the element itself
+        for(int j=arr.size()-1;j>=0;j--){
+            if(j==arr.size()-1)
+                FromRightMin[arr.size()-1]=arr.size();
+            else
+                FromRightMin[j]= min(arr[j+1], FromRightMin[j+1]);   
+        }
+        
+        /
+        for(int i=0;i<arr.size();i++){
+            if(FromLeftMax[i] <FromRightMin[i])
+                count++;            
+        }
+        return count;
+    }
+};
