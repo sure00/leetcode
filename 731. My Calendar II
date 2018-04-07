@@ -1,0 +1,31 @@
+class MyCalendarTwo {
+public:
+    MyCalendarTwo() {
+        
+    }
+    
+    bool book(int start, int end) {
+       for(const auto& event: conflict)
+          if(max(start, event.first) < min(end, event.second)) return false;
+        
+        for(const auto&event: booked){
+            int st=max(start, event.first);
+            int en=min(end, event.second);
+            if(st <en)
+                conflict.emplace_back(st,en);   
+        }
+        
+        booked.emplace_back(start,end);  
+        return true;
+    }
+    
+private:
+    vector<pair<int, int>> booked;
+    vector<pair<int, int>> conflict;
+};
+
+/**
+ * Your MyCalendarTwo object will be instantiated and called as such:
+ * MyCalendarTwo obj = new MyCalendarTwo();
+ * bool param_1 = obj.book(start,end);
+ */
