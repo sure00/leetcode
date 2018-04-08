@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int maxChunksToSorted(vector<int>& arr) {
+        int CurrentMax=0;
+        int ret=0;
+        
+        //想法比较简单直接。数字是从0开始，排序以后的数组是0->0 1->1, xxxx
+        // 如果从左边数，当前位置最大的数字 等于 当前的下标 n。 说明从index 0 到n之间最大的数字是n，然后后面的数字肯定比n大。那末肯定这里就是一个分界点。
+        //我以前的做法是针对数字没有限制范围的。
+        for(int i=0;i< arr.size();i++){
+            CurrentMax = max(CurrentMax, arr[i]);
+            if(CurrentMax == i)
+                ret++;
+        }
+        
+        return ret;
+    }
+};
