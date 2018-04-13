@@ -1,0 +1,25 @@
+class Solution {
+public:
+    double Pow(double x, int n){
+        if(n==0)
+            return 1;
+        
+        double res= Pow(x, n/2);
+        res*=res;
+        
+        if(n%2)
+            res*=x;
+        
+        return res;
+        
+    }
+    
+    double myPow(double x, int n) {
+        
+        if(n > 0)
+            return Pow(x, n);
+        else
+            return 1/Pow(x, -n);
+        
+    }
+};
