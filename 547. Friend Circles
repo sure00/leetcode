@@ -1,0 +1,63 @@
+
+class disjoint_set {
+  private:
+    vector<int> parent;
+    vector<int> rank;
+    
+    public:
+        disjoint_set(int n){
+            parent = vector<int>(n,0);
+            rank = vector<int>(n,0);
+            
+            for(int i=0;i<n;i++){
+                parent[i]=i;
+            }
+        }
+    
+        int find(int a){
+            if(parent[a] != a)
+                 parent[a] = find(parent[a]);
+                         
+            return parent[a];
+        }
+
+        bool Union(int a, int b){
+            int root_a = find(a);
+            int root_b = find(b);
+            
+            if(root_a == root_b)
+                return false;
+            
+            if(rank[root_a] < rank[root_b]){
+                parent[root_a] = root_b;
+            }
+            else if(rank[root_a] > rank[root_b])
+                parent[root_b]=root_a;
+            else{
+                parent[root_b]=root_a;
+                rank[root_a]++;
+            } 
+                
+            return true;
+        }
+};
+
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& M) {
+        disjoint_set s(M.size());
+        
+        for(int i=0;i< M.size();i++)
+            for(int j=0;j<M[0].size();j++){
+                if(M[i][j]==1)
+                    s.Union(i,j);
+            }
+        
+        unordered_set<int> head_list;
+        for(int i=0;i<M.size();i++){
+            head_list.insert(s.find(i));
+        }
+        
+        return head_list.size();
+    }
+};
