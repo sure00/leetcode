@@ -1,0 +1,65 @@
+class UnionFind {
+private:
+    vector<int> parent;
+    vector<int> ranks;
+       
+public:
+    UnionFind(int size){
+        parent = vector<int>(size,0);
+        ranks = vector<int>(size,0);
+        
+        for(int i =0;i< parent.size();i++){
+            parent[i]=i;
+        }
+    }
+    
+    int find(int a){
+        if(parent[a]==a)
+            return a;
+        
+        parent[a] = find(parent[a]);
+        return parent[a];
+    }
+    
+    bool Union(int a, int b){
+        int pa=find(a);
+        int pb=find(b);
+        
+        //they are same parent which means already in a same set.
+        //return false
+        if(pa==pb)
+            return false;
+        else{
+            if(ranks[pa]< ranks[pb])
+                parent[pa]=pb;
+            else if(ranks[pa] > ranks[pb])
+                parent[pb]=pa;
+            else if(ranks[pa] == ranks[pb])
+                parent[pb]=pa;
+                ranks[pa]++;
+                
+            }   
+        return true;
+    }
+};
+
+class Solution { 
+public:
+    bool validTree(int n, vector<pair<int, int>>& edges) {
+        UnionFind s(n);
+        for(const auto edge: edges){
+            if(!s.Union(edge.first, edge.second))
+                return false;            
+        }
+        
+        unordered_set<int> root_list;
+        
+        for(int i=0;i<n;i++){
+            root_list.insert(s.find(i));
+        }
+        if(root_list.size()>1)
+            return false;
+        
+        return true;
+    }
+};
