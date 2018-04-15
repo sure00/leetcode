@@ -1,0 +1,41 @@
+ *     vector<UndirectedGraphNode *> neighbors;
+ *     UndirectedGraphNode(int x) : label(x) {};
+ * };
+ */
+class Solution {
+public:
+    UndirectedGraphNode *cloneGraph(UndirectedGraphNode *node) {
+        //using bfs to go through the graph
+        if(NULL == node)
+            return NULL;
+    
+        // need a queue to store the nodes which will check next;
+        queue<UndirectedGraphNode *> mqueue;
+        
+        //using a hash map to record the releationship between new node that copied from old graph.
+        unordered_map<UndirectedGraphNode *, UndirectedGraphNode *> pairMap;
+        
+        UndirectedGraphNode * cloneNode = new UndirectedGraphNode(node->label);
+        pairMap[node]= cloneNode;
+        mqueue.push(node);
+        
+        while(!mqueue.empty()){
+            UndirectedGraphNode *curNode = mqueue.front();
+            mqueue.pop();
+            
+            //check whether the neighbor of node is in the pairMap. If exist which means already allocated.
+            //if not, which means do not exist. Need to push it into the mqueue
+            for(const auto neighbor:curNode->neighbors){
+                // already exist，need to update the cloned neighbors vector                
+                if(pairMap.find(neighbor) == pairMap.end()){// the neighbor is not exist in the visited pairMap
+                    UndirectedGraphNode * newcloneNode = new UndirectedGraphNode(neighbor->label);
+                    pairMap[neighbor]= newcloneNode;
+                    mqueue.push(neighbor);
+                }
+                
+                pairMap[curNode]->neighbors.push_back(pairMap[neighbor]);
+            }
+        }
+        return cloneNode;
+    }
+};
