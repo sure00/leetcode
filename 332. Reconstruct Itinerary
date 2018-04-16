@@ -1,0 +1,51 @@
+class Solution {
+public:
+    int dfs(string start, vector<string> &ret, unordered_map<string, map<string, int>> &map, int leftTickets){
+        if(leftTickets==0)
+            return true;
+        
+        if(map.find(start) == map.end() || map[start].empty()){
+                return false;
+        }
+
+        for( auto it=map[start].begin(); it!= map[start].end();it++ ){
+                    string newStartPlace = it->first;
+                    if(it->second!=0){
+                        it->second--;
+                        ret.push_back(newStartPlace);
+                        if(dfs(newStartPlace, ret, map, leftTickets-1) == true)
+                            return true;
+                        else{
+                            map[start][newStartPlace]++;
+                            ret.pop_back();
+                        }
+                    }
+        }
+        return false;    
+    }
+    
+    vector<string> findItinerary(vector<pair<string, string>> tickets) {
+    //using DFS + 
+    //  **key - value
+    //  **start - (destination1, times)
+    //          - (destination2, times)
+                    
+    // how to sort the destional to match smallest lexical order?
+    // the answer is using map
+    if(tickets.size()==0)
+        return {};
+    
+    unordered_map<string, map<string, int>> map;
+    vector<string> ret;
+    
+    ret.push_back("JFK");
+    //convert the tickets into the map
+    for(auto &ticket: tickets){
+        map[ticket.first][ticket.second]++;
+    }
+        
+    dfs("JFK", ret, map,tickets.size());
+    
+    return ret;
+    }
+};
