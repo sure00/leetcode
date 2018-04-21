@@ -1,0 +1,45 @@
+class Solution {
+public:
+    void recursive(unordered_map <char, char> map, vector<string> &ret, string &tmp, int n){
+        if(n<=0){
+            if(tmp.length()==1|| tmp[0]!='0')
+                ret.push_back(tmp);
+            return;
+        }
+        
+        for(auto it=map.begin(); it!=map.end(); it++){
+            if(n==1 && it->first!= it->second)
+                continue;
+            
+            int ins1stPos =tmp.length()/2;  
+            int ins2ndPos =ins1stPos+1;    
+    
+            tmp.insert(ins1stPos, 1, it->first);
+            if(n!=1)
+                tmp.insert(ins2ndPos, 1, it->second);
+            
+            recursive(map, ret, tmp, n-2);
+            
+            
+            tmp.erase(ins1stPos,1);
+            if(n!=1)
+                tmp.erase(ins1stPos,1);
+        }
+    }
+    
+    vector<string> findStrobogrammatic(int n) {
+        vector<string> ret;
+        unordered_map<char, char> map;
+        map['0']='0';
+        map['1']='1';
+        map['8']='8';
+        map['6']='9';        
+        map['9']='6';
+        
+        string tmp="";
+        
+        recursive(map, ret, tmp, n);
+        
+        return ret;
+    }
+};
