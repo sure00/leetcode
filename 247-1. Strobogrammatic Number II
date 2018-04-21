@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<string> recursive(int leftlength, int totallengh){
+        vector<string> ret;
+        
+        if(leftlength ==0) return {""};
+        if(leftlength == 1)
+            return {"1","8","0"};
+        
+        vector<string> t = recursive(leftlength-2, totallengh);
+        for(auto a:t){
+            if(leftlength != totallengh)
+                ret.push_back("0"+a+"0");
+            ret.push_back("1"+a+"1");
+            ret.push_back("6"+a+"9");
+            ret.push_back("8"+a+"8");
+            ret.push_back("9"+a+"6");            
+        }
+        return ret;
+    }
+    
+    vector<string> findStrobogrammatic(int n) {
+        vector<string> ret;
+        return recursive(n, n);
+    }
+};
