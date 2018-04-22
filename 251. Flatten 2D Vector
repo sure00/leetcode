@@ -1,0 +1,36 @@
+class Vector2D {
+private:
+    int curRowIndex=0;
+    int curColIndex=0;
+    vector<vector<int>> vec;
+    
+public:
+    Vector2D(vector<vector<int>>& vec2d) {
+        vec=vec2d;
+    }
+
+    int next() {
+        return vec[curRowIndex][curColIndex++];
+
+    }
+
+    bool hasNext() {
+        while(curRowIndex < vec.size()){    
+            //最妙的是个，因为有[]的array存在，所以用这个语句来判断当前的col index和 空的array的size。
+            if(curColIndex < vec[curRowIndex].size())
+                return true;
+            else{
+                curColIndex=0;
+                curRowIndex++;
+            }           
+        }
+        
+        return false;
+    }
+};
+
+/**
+ * Your Vector2D object will be instantiated and called as such:
+ * Vector2D i(vec2d);
+ * while (i.hasNext()) cout << i.next();
+ */
