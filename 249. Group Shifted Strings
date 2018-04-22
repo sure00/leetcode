@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<vector<string>> groupStrings(vector<string>& strings) {
+        //abc, bcd, xyz
+        vector<vector<string>> ret;
+        
+        map<string, vector<string>> mymap;
+        
+        for(int i=0;i<strings.size();i++){
+            string item=strings[i];
+            string key;
+            //check each character`s diff with the 1st char.
+            for(int j=1;j<item.length();j++){
+                key+=(item[j]+26-item[0])%26+',';
+            }
+            mymap[key].push_back(item);            
+        }
+        
+        for(auto it=mymap.begin();it!=mymap.end();it++){
+            ret.push_back(it->second);            
+        }
+        
+        return ret;
+    }
+};
