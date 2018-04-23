@@ -1,0 +1,60 @@
+// ConsoleApplication1.cpp : Defines the entry point for the console application.
+//
+#include "stdafx.h"
+#include <iostream>
+#include <vector>
+
+
+using namespace std;
+
+
+
+
+int maxeleIndex(vector<int> &arr, int n) {
+	int maxEleIndex = 0;
+
+	for (int i = 0;i <= n;i++) {
+		if (arr[i] > arr[maxEleIndex])
+			maxEleIndex = i;
+	}
+	return maxEleIndex;
+}
+
+void flip(vector<int> &arr, int n) {
+	int start = 0;
+	int end = n;
+	while (start < end) {
+		int tmp = arr[start];
+		arr[start] = arr[end];
+		arr[end] = tmp;
+		start++;
+		end--;
+	}
+}
+
+void  pancakeSort( vector<int> &arr, int n) {
+
+	//range from all the element to only 1 element
+	for (int i = n;i > 0;i--) {
+
+		//find the max element between the first n element
+		int maxEleIndex = maxeleIndex(arr, i);
+
+		//flip it to back
+		flip(arr, maxEleIndex);
+		flip(arr, i);
+	}
+}
+
+int main()
+{
+	vector<int> arr ={ 23, 10, 20, 11, 12, 6, 7 };
+
+	pancakeSort(arr, arr.size()-1);
+
+	for (auto c : arr)
+		cout << c << endl;
+
+    return 0;
+}
+
