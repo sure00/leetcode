@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool canPermutePalindrome(string s) {
+        /*
+        * giving a tring such as aab. permutation the string and check whether it can be form a palindrome.
+        * such as aab -> aba and aba is palindrome.
+        * if a string is palindrome, that means some character appears twice or four times and only one character appears once or not.
+        * we can account the number of characters which appears in the string and check how many times the character appears.
+        * if only one character appears onces or all the character appears twice or four times or 8 times. That means the string is palindrome.
+        */
+        
+        unordered_map<char, int> map;
+        
+        for(int i=0;i<s.length();i++){
+            if(map.find(s[i]) == map.end())
+                map[s[i]]=1;
+            else
+                map.erase(s[i]);
+        }
+        
+        return (map.size() <=1);
+    }
+};
