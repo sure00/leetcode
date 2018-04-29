@@ -1,0 +1,48 @@
+	看完各位大神的做法，小的受益匪浅。
+	我用了一个比较笨的办法。时间复杂度比较高。
+	
+
+class Solution {
+public:
+
+    
+    int maximalSquare(vector<vector<char>>& matrix) {
+        //using dp to calculate the number of 1s in the rectangular from (0,0) to(x,y)
+        //apply each length of edge for rectangular on the vector 
+        //and verify whether the sum of 1 in the rectangular is eaqual to the square of length.
+        // if, yes which means this rectangular is full of 1.
+        
+        if(matrix.empty())
+            return 0;
+        
+        int row= matrix.size();
+        int col= matrix[0].size();
+        
+        vector<vector<int>> dp(row+1, vector<int>(col+1,0));
+        
+        //calculate the number of 1s from (0,0) to (x,y)
+        for(int i=1;i<=row;i++)
+            for(int j=1;j<=col;j++){
+                dp[i][j]=dp[i][j-1] + dp[i-1][j] - dp[i-1][j-1] + matrix[i-1][j-1]-'0';
+            }
+        
+        //apply the square with size 1,2,3,4.....
+        int ans=0;
+        
+        for(int i=0;i<row;i++)
+            for(int j=0;j<col;j++){
+                for(int len=min(row-i, col-j);len>0;len--){
+                    //verify this rectangular whether it have len^2`s 1.
+                    int sum= dp[i+len][j+len] 
+                            - dp[i+len][j] 
+                            - dp[i][j+len] 
+                            + dp[i][j];
+                    
+                    if(sum == len*len){
+                        ans=max(ans,sum);
+                    }
+                }
+            }
+        return ans;
+    }
+};
