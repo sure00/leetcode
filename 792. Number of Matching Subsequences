@@ -1,0 +1,38 @@
+class Solution {
+private:
+    unordered_map<string, bool> recorder;
+    
+    bool chec(string word, vector<vector<int>> map){
+        if(recorder.count(word))
+            return recorder[word];
+        
+        int lastIndex=-1;
+        
+        for(const char c: word)
+        {
+            const vector<int>& p = map[c];
+            auto it = std::lower_bound(map[c].begin(), map[c].end(), lastIndex+1);
+            if(it == map[c].end())
+                return recorder[word]=false;
+            lastIndex = *it;
+        }
+        
+        return recorder[word]=true;
+    }
+ public:   
+    int numMatchingSubseq(string S, vector<string>& words) {
+        vector<vector<int>> pos(128);    
+        int count=0; 
+        
+        //construct map
+        for(int i=0;i<S.length();i++){
+            pos[S[i]].push_back(i);
+        }
+        
+        for(const string& word:words){
+            count+=chec(word,pos);
+        }
+        
+        return count;
+    }
+};
