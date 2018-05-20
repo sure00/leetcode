@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        int lens= s.length();
+        int lent= t.length();
+        vector<vector<int>> DP(lens+1,vector<int>(lent+1, 0));
+        
+        //init. dp
+        for(int i=0;i<=lens;i++)
+            DP[i][0]=1;
+        for(int j=0;j<=lent;j++)
+            DP[0][j]=0;
+                               
+        for(int i=1;i<=lens;i++){
+            for(int j=1;j<=lent&& j<=i;j++){
+                if(i==j && s[i-1]==t[j-1]){
+                    DP[i][j]=s.substr(0, i) == t.substr(0, j);
+                    //DP[i][j]= DP[i-1][j-1];
+                }
+                else
+                {
+                    if(s[i-1]!=t[j-1])
+                        DP[i][j]=DP[i-1][j];
+                    else
+                        DP[i][j]=DP[i-1][j]+DP[i-1][j-1];
+                }
+            }
+        }
+        return DP[lens][lent];               
+    }
+};
