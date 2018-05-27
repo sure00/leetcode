@@ -1,0 +1,36 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int lens= s.length();
+        vector<vector<bool>> DP(lens,vector<bool>(lens, 0));
+        int maxLen=0;
+        int retstart=0;
+        int retend=0;
+        
+        //initial the margin        
+        for(int i=0;i<lens;i++){
+            DP[i][i]=1;
+        }
+        
+        //DP[i][j] means the substring from index i to index j is Palindromic 
+        for(int i=lens-2;i>=0;i--){
+            for(int j=i+1;j<lens;j++){
+                if(s[i]!=s[j])
+                    DP[i][j]=0;
+                else{
+                    if(i+1 ==j)
+                        DP[i][j]=1;
+                    else
+                        DP[i][j]= DP[i+1][j-1];
+                }
+
+                if(DP[i][j]==1 && j-i > maxLen){
+                    maxLen=j-i;
+                    retstart = i;
+                    retend=j;
+                }
+            }
+        }
+        return s.substr(retstart, maxLen+1);       
+    }
+};
