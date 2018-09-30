@@ -1,0 +1,42 @@
+class Solution {
+private:
+    unordered_map<int, vector<pair<int, int>>> graphics;
+    
+    int dfs(int src, int dst, vector<int> &visited, int cost, int &min_cost, int k){
+        int ret = -1;
+        
+        if(src == dst){
+            min_cost = cost;
+            return 0;
+        }
+        if(k ==0)
+            return -1;
+        
+        for(const auto &p:graphics[src]){
+            if(visited[p.first] == 1) continue;
+            if(cost + p.second >= min_cost) continue;
+            
+            visited[p.first] = 1;
+            ret =ret & dfs(p.first, dst, visited, cost + p.second, min_cost, k-1);
+            
+            visited[p.first] = 0;
+        }
+        return ret; 
+    }
+    
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int K) {
+        int ret=1;
+        
+        for(const auto& f : flights)
+            graphics[f[0]].emplace_back(f[1],f[2]);
+        
+        vector<int> visited(n, 0);
+        visited[src]=1;
+        int min_cost = INT_MAX;
+            
+        ret = dfs(src, dst, visited, 0, min_cost, K+1);
+            
+        return ret==0? min_cost: ret;
+    }
+};
