@@ -1,0 +1,39 @@
+/**
+ * Definition for an interval.
+ * struct Interval {
+ *     int start;
+ *     int end;
+ *     Interval() : start(0), end(0) {}
+ *     Interval(int s, int e) : start(s), end(e) {}
+ * };
+ */
+class Solution {
+public:
+    // Still confusing why need to declear it as static 
+    static bool compare(const Interval &a, const Interval &b) {
+        return (a.start < b.start);        
+    }
+    
+    vector<Interval> merge(vector<Interval>& intervals) {
+        if(intervals.empty())
+            return {};
+         
+        vector<Interval> ret;
+        
+        //Sort it firstly as must make sure the 1st element is inorder 
+        std::sort(intervals.begin(), intervals.end(), Solution::compare);
+        
+        
+        for(const auto& interval : intervals) {
+            // if ret vector is null, need to push interva into the ret vector.
+            // if ret {{1, 3}, {5,9}}  interval {10, 30} need to push interval into the ret list
+            if(ret.empty() || interval.start > ret.back().end)
+                ret.push_back(interval);
+            else
+                ret.back().end = max(ret.back().end, interval.end);
+                // {{1, 3}, {5,9}}  {6, 8}
+                //need to update the end of {5, 9}. As cannot determin which end element is bigger. need to use max to determin.
+        }
+        return ret;
+    }
+};
