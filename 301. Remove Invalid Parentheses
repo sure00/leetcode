@@ -1,0 +1,70 @@
+class Solution {
+public:
+    bool valid(string s){
+        int left=0;
+        int right=0;
+        
+        for(int i=0;i<s.size();i++){
+            if(left ==0 && s[i]==')')
+                right++;
+            
+            left += s[i]=='(';
+            left -= s[i]==')';
+            
+            
+            if(right> left)
+                return false;            
+        }
+        
+        if(left==0 && right==0)
+            return true;
+        
+        return false;
+    }
+    
+    void dfs(vector<string> &ret, int start, int rmLeft, int rmRight, string s){
+        if(rmRight ==0 && rmLeft==0){
+            if(valid(s)){
+                ret.push_back(s);
+                return;
+            }                
+        }
+        for(int i=start;i<s.length();i++){
+            if(i!= start && s[i]==s[i-1])
+                continue;
+            if(s[i]=='(' || s[i]==')'){
+                string curr=s;
+                curr.erase(i,1);
+                if(rmRight>0)
+                    dfs(ret, i, rmLeft, rmRight-1, curr);
+                else if(rmLeft>0)
+                    dfs(ret, i, rmLeft-1, rmRight, curr);
+            }
+            
+        }
+        
+    }
+    
+    vector<string> removeInvalidParentheses(string s) {
+        int rmLeft=0;
+        int rmRight=0;
+        vector<string> ret;
+        
+        for(int i=0;i<s.size();i++){
+                if(rmLeft==0 && s[i]==')'){
+                    rmRight+=1;
+                    continue;
+                }                
+                rmLeft+= s[i]=='(';
+                rmLeft-= s[i]==')';
+        }
+        
+        dfs(ret, 0, rmLeft, rmRight, s);    
+        return ret;
+    }
+};
+/*
+1. the count of left parentheses and right parentheses must be removed to keep a valid parentheses.
+2. try to remove the right and left parentheses one by one using recursive until the need_remove parentheses is 0.
+3. check valid of the parentheses.
+*/
