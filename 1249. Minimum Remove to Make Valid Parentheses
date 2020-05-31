@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        stack<int> leftParenthese;
+        
+        if(s.size() ==0)
+            return {};
+        //go through the string and find the unmatched parenthese.
+        //Stack to save the (, and pop the last ( when find a ).
+        for(int i=0;i<s.size();i++) {
+            if(s[i] == '(')
+                leftParenthese.push(i);
+            else if(s[i] == ')') {
+                // find a ) then pop one (
+                if(!leftParenthese.empty()){
+                    leftParenthese.pop();
+                }
+                else
+                    // only find ), then mark the ) as *.
+                    s[i]='*';
+            }
+        }
+        
+        //if there have few ( not matched, mark them as *
+        while(!leftParenthese.empty()){
+            s[leftParenthese.top()]='*';
+            leftParenthese.pop();
+        }
+        
+        //remove * and erase them
+        s.erase(remove(s.begin(), s.end(), '*'), s.end());
+        
+        return s;
+    }
+};
