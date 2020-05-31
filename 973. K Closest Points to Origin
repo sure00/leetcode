@@ -1,0 +1,36 @@
+class Solution {
+public:
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int K) {
+        //mymap: first element is the length to original, 2nd element is the array which record the index of point which have same length.
+        map<double, vector<int>> mymap;
+        vector<vector<int>> ret;
+        
+        for(int i=0;i<points.size();i++) {
+            // calculate the length
+            double len=points[i][0] * points[i][0] + points[i][1] * points[i][1];
+            // push the index of points with same  length
+            mymap[len].push_back(i);
+        }
+        
+        // using it to make sure select less than K element
+        int i=0;
+        
+        // interator each element in map
+        for (map<double, vector<int>>::iterator it=mymap.begin(); it!=mymap.end(); ++it) {
+            if(i<K) {
+                // get the vector for each length
+                vector<int> indVec = it->second;
+                
+                //get the index of each element in indVec.
+                for(int j=0;j<indVec.size();j++){
+                    ret.push_back(points[indVec[j]]);
+                    i++;
+                }
+            }
+            else
+                break;
+        }
+        
+        return ret;
+    }
+};
